@@ -4,7 +4,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0u6y"]
 
-[node name="OilMachine" type="Node3D" unique_id=1870009809]
+[node name="OilMachine" type="StaticBody3D" unique_id=1663536219]
+collision_layer = 8
+collision_mask = 31
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1266464315]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2.5, 0)

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cvrx03wyxfhq7"]
+
+[ext_resource type="PackedScene" uid="uid://jkiqoin16gux" path="res://Scenes/Components/Pickable/stick.tscn" id="1_3obdt"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_es517"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g4v7s"]
+
+[node name="Tree" type="RigidBody3D" unique_id=2124183470]
+collision_layer = 4
+collision_mask = 14
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=113711741]
+transform = Transform3D(0.5, 0, 0, 0, 2, 0, 0, 0, 0.5, 0, 2, 0)
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1343293818]
+transform = Transform3D(0.3, 0, 0, 0, 0.90065193, -0.13036238, 0, 0.43454126, 0.2701956, 0, 3.430707, 0.53786397)
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=649598860]
+transform = Transform3D(0.13814768, -0.5622009, 0.20607999, 0, 0.77386665, 0.1900047, -0.26629916, -0.29165232, 0.10690788, -0.552529, 3.7799683, -0.30641317)
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=2085402918]
+transform = Transform3D(0.22330073, 0.42295408, -0.15503779, 8.085289e-09, 0.77386665, 0.1900047, 0.20034175, -0.47142425, 0.17280492, 0.3962847, 3.6102595, -0.45018816)
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1476766816]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.1556582, 5.081302, -0.9862313)
+mesh = SubResource("SphereMesh_es517")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=451059697]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.06808114, 4.886242, 0.5887592)
+mesh = SubResource("SphereMesh_es517")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=145077997]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.9285073, 5.3189874, -0.4683261)
+mesh = SubResource("SphereMesh_es517")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2109754694]
+transform = Transform3D(0.5, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_g4v7s")
+
+[node name="Stick" parent="." unique_id=1368799901 instance=ExtResource("1_3obdt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9721787, 3.0853202, 0)
+
+[node name="Stick2" parent="." unique_id=2081234734 instance=ExtResource("1_3obdt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8456247, 3.0853202, 0)
+
+[node name="Stick3" parent="." unique_id=763321973 instance=ExtResource("1_3obdt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16660345, 3.0853202, -1.3944612)
+
+[node name="Stick4" parent="." unique_id=572363665 instance=ExtResource("1_3obdt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008851528, 3.0853202, 1.0896311)
