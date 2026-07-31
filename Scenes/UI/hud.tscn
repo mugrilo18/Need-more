@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://g120ojgjdxyi"]
+
+[ext_resource type="Theme" uid="uid://evj7qohe3khw" path="res://Assets/Themes/game_theme.tres" id="1_sprlj"]
+[ext_resource type="Script" uid="uid://ddfqjhinqskjp" path="res://Scripts/UI/hud.gd" id="1_vsu76"]
+[ext_resource type="Texture2D" uid="uid://j7827prkdvn1" path="res://Assets/Icons/ProgressBar/charge_under.png" id="2_8glcj"]
+[ext_resource type="Texture2D" uid="uid://23tva08n0vmr" path="res://Assets/Icons/ProgressBar/charge_over.png" id="3_vsu76"]
+[ext_resource type="Texture2D" uid="uid://bsa7sjh8q2d5h" path="res://Assets/Icons/ProgressBar/charge_progress.png" id="4_ux5h0"]
+
+[node name="HUD" type="CanvasLayer" unique_id=687148713 node_paths=PackedStringArray("oil_charge")]
+script = ExtResource("1_vsu76")
+oil_charge = NodePath("MarginContainer/TextureProgressBar")
+
+[node name="Crosshair" type="Panel" parent="." unique_id=1307522595]
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_sprlj")
+theme_type_variation = &"CrossHair"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1630703274]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer" unique_id=2136810638]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("2_8glcj")
+texture_over = ExtResource("3_vsu76")
+texture_progress = ExtResource("4_ux5h0")

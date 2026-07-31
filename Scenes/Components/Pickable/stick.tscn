@@ -6,7 +6,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_20fpx"]
 
-[node name="Stick" type="RigidBody3D" unique_id=1368799901]
+[node name="Stick" type="RigidBody3D" unique_id=1368799901 groups=["stick"]]
 collision_layer = 16
 collision_mask = 28
 script = ExtResource("1_lturu")

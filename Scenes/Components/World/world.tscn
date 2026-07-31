@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://clcenh8kb5q65"]
 
 [ext_resource type="PackedScene" uid="uid://ckbcikjesuvo8" path="res://Scenes/Components/World/ground.tscn" id="1_03crl"]
+[ext_resource type="PackedScene" uid="uid://g120ojgjdxyi" path="res://Scenes/UI/hud.tscn" id="1_r27ec"]
 [ext_resource type="PackedScene" uid="uid://qy7w8o6n18s3" path="res://Scenes/Components/Characters/player.tscn" id="2_r27ec"]
 [ext_resource type="PackedScene" uid="uid://dxdreydgia0ht" path="res://Scenes/Components/Machines/oil_machine.tscn" id="3_74cjv"]
 [ext_resource type="PackedScene" uid="uid://bmap8wt4kg41q" path="res://Scenes/Components/Characters/enemy.tscn" id="5_8ho37"]
@@ -20,6 +21,8 @@ glow_enabled = true
 
 [node name="World" type="Node3D" unique_id=1527751486]
 
+[node name="CanvasLayer" parent="." unique_id=687148713 instance=ExtResource("1_r27ec")]
+
 [node name="Environment" type="Node" parent="." unique_id=498969669]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=420621895]
@@ -31,16 +34,17 @@ shadow_enabled = true
 
 [node name="Ground" parent="Environment" unique_id=740330614 instance=ExtResource("1_03crl")]
 
+[node name="Trees" type="Node3D" parent="Environment" unique_id=1795946227]
+
+[node name="Tree" parent="Environment/Trees" unique_id=2100899579 instance=ExtResource("6_3lr6x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.166935, 0, 4.0562077)
+
 [node name="Player" parent="." unique_id=2133001960 instance=ExtResource("2_r27ec")]
 transform = Transform3D(-0.83526236, 0, 0.54985166, 0, 1, 0, -0.54985166, 0, -0.83526236, -11.964037, 0, 0)
 
-[node name="OilMachine" parent="." unique_id=1870009809 instance=ExtResource("3_74cjv")]
+[node name="OilMachine" parent="." unique_id=1870009809 node_paths=PackedStringArray("player_ref") instance=ExtResource("3_74cjv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88685, 0, -8.112182)
+player_ref = NodePath("../Player")
 
 [node name="Enemy" parent="." unique_id=949111316 instance=ExtResource("5_8ho37")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6312323, 0, 0)
-
-[node name="Trees" type="Node3D" parent="." unique_id=1795946227]
-
-[node name="Tree" parent="Trees" unique_id=2100899579 instance=ExtResource("6_3lr6x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.166935, 0, 4.0562077)

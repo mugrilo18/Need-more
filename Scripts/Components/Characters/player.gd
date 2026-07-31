@@ -1,6 +1,7 @@
 extends CharacterBody3D
+class_name Player
 
-const SPEED = 5.0
+var speed: float = 5.0
 const JUMP_VELOCITY = 4.5
 
 @export var head: Node3D
@@ -30,12 +31,18 @@ func _player_movement(delta):
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+	
+	if Input.is_action_pressed("sprint"):
+		speed = 10.0
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		speed = 5.0
+	
+	if direction:
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 	
 	move_and_slide()
 
@@ -80,7 +87,6 @@ func _move_grab_object(delta):
 	
 	var required_velocity = direction / delta
 	
-	var velocity_correction = required_velocity - grabbed_object.linear_velocity
 	grabbed_object.linear_velocity = required_velocity
 	
 	grabbed_object.angular_velocity *= 0.5

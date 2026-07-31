@@ -46,6 +46,7 @@ collision_mask = 14
 spring_length = 1.5
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Head/SpringArm3D" unique_id=155523811]
+visible = false
 material_override = SubResource("StandardMaterial3D_iwdvq")
 radius = 0.05
 

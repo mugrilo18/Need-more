@@ -1,17 +1,47 @@
 [gd_scene format=3 uid="uid://dxdreydgia0ht"]
 
+[ext_resource type="Script" uid="uid://sbu3h3s7hn75" path="res://Scripts/Components/Machines/oil_machine.gd" id="1_hq0oe"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_57qmd"]
+size = Vector3(0.5753174, 0.31201172, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fs0w0"]
+size = Vector3(0.15229797, 0.0960083, 0.4794922)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0u6y"]
+size = Vector3(0.5650635, 0.3076172, 1)
 
-[node name="OilMachine" type="StaticBody3D" unique_id=1663536219]
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(0.71221924, 0.460083, 0.4970703)
+
+[node name="OilMachine" type="StaticBody3D" unique_id=1663536219 node_paths=PackedStringArray("cooldown_machine")]
 collision_layer = 8
 collision_mask = 31
+script = ExtResource("1_hq0oe")
+cooldown_machine = NodePath("CooldownMachine")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1266464315]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2.5, 0)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0.18585205, 0.7800293, 0)
 mesh = SubResource("BoxMesh_57qmd")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1665238479]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0.15155792, 0.24002075, 0.7377145)
+mesh = SubResource("BoxMesh_fs0w0")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1611987217]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2.5, 0)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0.17486572, 0.76904297, 0)
 shape = SubResource("BoxShape3D_d0u6y")
+
+[node name="CooldownMachine" type="Timer" parent="." unique_id=1848891210]
+one_shot = true
+
+[node name="Area3D2" type="Area3D" parent="." unique_id=1564285353]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2" unique_id=593239580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.131073, 0.2699585, 0.7120801)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[connection signal="timeout" from="CooldownMachine" to="." method="_on_cooldown_machine_timeout"]
+[connection signal="body_entered" from="Area3D2" to="." method="_on_area_3d_2_body_entered"]

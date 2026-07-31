@@ -1,0 +1,12 @@
+[gd_resource type="Theme" format=3 uid="uid://evj7qohe3khw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0nr10"]
+bg_color = Color(1, 1, 1, 0.49803922)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+CrossHair/base_type = &"Panel"
+CrossHair/styles/panel = SubResource("StyleBoxFlat_0nr10")
