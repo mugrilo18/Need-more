@@ -10,7 +10,8 @@ func _input(event: InputEvent) -> void:
 			PlayerStatus._reset_status()
 		
 		if Input.is_action_just_pressed("lantern") and PlayerStatus.lantern == false:
-			PlayerStatus.lantern = true
+			if PlayerStatus.oil_charge > 0:
+				PlayerStatus.lantern = true
 		elif Input.is_action_just_pressed("lantern") and PlayerStatus.lantern == true:
 			PlayerStatus.lantern = false
 			
