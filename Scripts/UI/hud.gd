@@ -1,6 +1,7 @@
 extends CanvasLayer
+class_name HUD
 
-@export var oil_charge: TextureProgressBar
+@export var progress_oil: TextureProgressBar
 
-func _process(delta: float) -> void:
-	oil_charge.value = PlayerStatus.oil_charge
+func _process(_delta: float) -> void:
+	progress_oil.value = PlayerStatus.oil_charge

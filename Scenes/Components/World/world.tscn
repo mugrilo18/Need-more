@@ -1,36 +1,23 @@
 [gd_scene format=3 uid="uid://clcenh8kb5q65"]
 
 [ext_resource type="PackedScene" uid="uid://ckbcikjesuvo8" path="res://Scenes/Components/World/ground.tscn" id="1_03crl"]
+[ext_resource type="Script" uid="uid://be72j1rpi07cv" path="res://Scripts/Managers/game_manager.gd" id="1_74cjv"]
 [ext_resource type="PackedScene" uid="uid://g120ojgjdxyi" path="res://Scenes/UI/hud.tscn" id="1_r27ec"]
 [ext_resource type="PackedScene" uid="uid://qy7w8o6n18s3" path="res://Scenes/Components/Characters/player.tscn" id="2_r27ec"]
 [ext_resource type="PackedScene" uid="uid://dxdreydgia0ht" path="res://Scenes/Components/Machines/oil_machine.tscn" id="3_74cjv"]
-[ext_resource type="PackedScene" uid="uid://bmap8wt4kg41q" path="res://Scenes/Components/Characters/enemy.tscn" id="5_8ho37"]
 [ext_resource type="PackedScene" uid="uid://cvrx03wyxfhq7" path="res://Scenes/Components/World/tree.tscn" id="6_3lr6x"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8j60k"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_fo5ed"]
-sky_material = SubResource("ProceduralSkyMaterial_8j60k")
-
-[sub_resource type="Environment" id="Environment_5ukr8"]
-background_mode = 2
-sky = SubResource("Sky_fo5ed")
-glow_enabled = true
 
 [node name="World" type="Node3D" unique_id=1527751486]
 
-[node name="CanvasLayer" parent="." unique_id=687148713 instance=ExtResource("1_r27ec")]
+[node name="GameManager" type="Node" parent="." unique_id=2097470881 node_paths=PackedStringArray("countdown_oil")]
+script = ExtResource("1_74cjv")
+countdown_oil = NodePath("CountDownOil")
+
+[node name="CountDownOil" type="Timer" parent="GameManager" unique_id=42078853]
+
+[node name="HUD" parent="." unique_id=687148713 instance=ExtResource("1_r27ec")]
 
 [node name="Environment" type="Node" parent="." unique_id=498969669]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=420621895]
-environment = SubResource("Environment_5ukr8")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1221251803]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
 
 [node name="Ground" parent="Environment" unique_id=740330614 instance=ExtResource("1_03crl")]
 
@@ -46,5 +33,4 @@ transform = Transform3D(-0.83526236, 0, 0.54985166, 0, 1, 0, -0.54985166, 0, -0.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88685, 0, -8.112182)
 player_ref = NodePath("../Player")
 
-[node name="Enemy" parent="." unique_id=949111316 instance=ExtResource("5_8ho37")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6312323, 0, 0)
+[connection signal="timeout" from="GameManager/CountDownOil" to="GameManager" method="_on_count_down_oil_timeout"]

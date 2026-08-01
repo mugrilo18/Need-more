@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://23tva08n0vmr" path="res://Assets/Icons/ProgressBar/charge_over.png" id="3_vsu76"]
 [ext_resource type="Texture2D" uid="uid://bsa7sjh8q2d5h" path="res://Assets/Icons/ProgressBar/charge_progress.png" id="4_ux5h0"]
 
-[node name="HUD" type="CanvasLayer" unique_id=687148713 node_paths=PackedStringArray("oil_charge")]
+[node name="HUD" type="CanvasLayer" unique_id=687148713 node_paths=PackedStringArray("progress_oil")]
 script = ExtResource("1_vsu76")
-oil_charge = NodePath("MarginContainer/TextureProgressBar")
+progress_oil = NodePath("MarginContainer/TextureProgressBar")
 
 [node name="Crosshair" type="Panel" parent="." unique_id=1307522595]
 custom_minimum_size = Vector2(10, 10)
@@ -40,6 +40,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+value = 100.0
 fill_mode = 3
 nine_patch_stretch = true
 texture_under = ExtResource("2_8glcj")

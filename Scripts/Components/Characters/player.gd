@@ -1,22 +1,25 @@
 extends CharacterBody3D
 class_name Player
 
-var speed: float = 5.0
-const JUMP_VELOCITY = 4.5
-
 @export var head: Node3D
 @export var grabbed_anchor: Marker3D
 @export var object_grabbed_shape_cast: ShapeCast3D
+@export var lantern: OmniLight3D
 
+const JUMP_VELOCITY = 4.5
+
+var speed: float = 5.0
 var grabbed_object: Pickable = null
 var mouse_sens: float = 0.005
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	lantern.visible = false
 
 func _physics_process(delta: float) -> void:
 	_player_movement(delta)
 	_move_grab_object(delta)
+	_lantern()
 
 func _input(event: InputEvent) -> void:
 	_camera_movement(event)
@@ -90,4 +93,9 @@ func _move_grab_object(delta):
 	grabbed_object.linear_velocity = required_velocity
 	
 	grabbed_object.angular_velocity *= 0.5
-	
+
+func _lantern():
+	if PlayerStatus.lantern == true:
+		lantern.visible = true
+	elif PlayerStatus.lantern == false:
+		lantern.visible = false
