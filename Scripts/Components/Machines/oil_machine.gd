@@ -11,4 +11,4 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		cooldown_machine.start()
 
 func _on_cooldown_machine_timeout() -> void:
-	PlayerStatus.oil_charge += 10
+	PlayerStatus.oil_charge += 40

@@ -95,7 +95,7 @@ func _move_grab_object(delta):
 	grabbed_object.angular_velocity *= 0.5
 
 func _lantern():
-	if PlayerStatus.oil_charge > 0 and PlayerStatus.lantern == true:
+	if PlayerStatus.lantern == true:
 		lantern.visible = true
 	elif PlayerStatus.lantern == false:
 		lantern.visible = false

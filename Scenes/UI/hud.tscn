@@ -46,3 +46,5 @@ nine_patch_stretch = true
 texture_under = ExtResource("2_8glcj")
 texture_over = ExtResource("3_vsu76")
 texture_progress = ExtResource("4_ux5h0")
+
+[connection signal="value_changed" from="MarginContainer/TextureProgressBar" to="." method="_on_texture_progress_bar_value_changed"]

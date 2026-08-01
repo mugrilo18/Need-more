@@ -6,6 +6,32 @@
 [ext_resource type="PackedScene" uid="uid://qy7w8o6n18s3" path="res://Scenes/Components/Characters/player.tscn" id="2_r27ec"]
 [ext_resource type="PackedScene" uid="uid://dxdreydgia0ht" path="res://Scenes/Components/Machines/oil_machine.tscn" id="3_74cjv"]
 [ext_resource type="PackedScene" uid="uid://cvrx03wyxfhq7" path="res://Scenes/Components/World/tree.tscn" id="6_3lr6x"]
+[ext_resource type="PackedScene" uid="uid://bmap8wt4kg41q" path="res://Scenes/Components/Characters/enemy.tscn" id="7_r27ec"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r27ec"]
+sky_top_color = Color(0.20743197, 0.25706646, 0.31664303, 1)
+sky_horizon_color = Color(0.25056085, 0.2559847, 0.2668315, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+sun_angle_max = 0.0
+use_debanding = false
+energy_multiplier = 0.1
+
+[sub_resource type="Sky" id="Sky_74cjv"]
+sky_material = SubResource("ProceduralSkyMaterial_r27ec")
+
+[sub_resource type="Environment" id="Environment_kk283"]
+background_mode = 2
+background_energy_multiplier = 1.71
+sky = SubResource("Sky_74cjv")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.185
+volumetric_fog_albedo = Color(0.08468994, 0.08468992, 0.08468994, 1)
+volumetric_fog_emission = Color(0.08468992, 0.08468994, 0.08468988, 1)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_g4v7s"]
+vertices = PackedVector3Array(-6.5, 0.45, -9.25, -4.75, 0.45, -9.25, -4.75, 0.45, -24.5, -6.75, 0.45, -8, -24.5, 0.45, -24.5, -24.5, 0.45, -8, -2.75, 0.45, -9, 24.5, 0.45, -6.75, 24.5, 0.45, -24.5, -2.75, 0.45, -7.25, -3.25, 0.45, -7, -6.5, 0.45, -7, -4.75, 0.45, -6.5, -24.5, 0.45, 24.5, -4.75, 0.45, 24.5, 24.5, 0.45, 24.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(9, 7, 10), PackedInt32Array(7, 9, 6), PackedInt32Array(5, 3, 11), PackedInt32Array(11, 12, 5), PackedInt32Array(5, 12, 14), PackedInt32Array(5, 14, 13), PackedInt32Array(10, 7, 12), PackedInt32Array(12, 7, 14), PackedInt32Array(14, 7, 15)]
 
 [node name="World" type="Node3D" unique_id=1527751486]
 
@@ -19,7 +45,17 @@ countdown_oil = NodePath("CountDownOil")
 
 [node name="Environment" type="Node" parent="." unique_id=498969669]
 
-[node name="Ground" parent="Environment" unique_id=740330614 instance=ExtResource("1_03crl")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=69781688]
+environment = SubResource("Environment_kk283")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Environment" unique_id=1500407395]
+navigation_mesh = SubResource("NavigationMesh_g4v7s")
+
+[node name="OilMachine" parent="Environment/NavigationRegion3D" unique_id=1870009809 node_paths=PackedStringArray("player_ref") instance=ExtResource("3_74cjv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88685, 0, -8.112182)
+player_ref = NodePath("../../../Player")
+
+[node name="Ground" parent="Environment/NavigationRegion3D" unique_id=740330614 instance=ExtResource("1_03crl")]
 
 [node name="Trees" type="Node3D" parent="Environment" unique_id=1795946227]
 
@@ -29,8 +65,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.166935, 0, 4.0562077)
 [node name="Player" parent="." unique_id=2133001960 instance=ExtResource("2_r27ec")]
 transform = Transform3D(-0.9054079, 0, -0.42454275, 0, 1, 0, 0.42454275, 0, -0.9054079, -11.964037, 0, 0)
 
-[node name="OilMachine" parent="." unique_id=1870009809 node_paths=PackedStringArray("player_ref") instance=ExtResource("3_74cjv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88685, 0, -8.112182)
+[node name="Enemy" parent="." unique_id=949111316 node_paths=PackedStringArray("player_ref") instance=ExtResource("7_r27ec")]
 player_ref = NodePath("../Player")
 
 [connection signal="timeout" from="GameManager/CountDownOil" to="GameManager" method="_on_count_down_oil_timeout"]
