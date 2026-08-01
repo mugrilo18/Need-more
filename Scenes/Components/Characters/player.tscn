@@ -15,13 +15,18 @@ radius = 0.1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwdvq"]
 albedo_color = Color(1, 0, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tserw"]
+albedo_color = Color(1, 0.7529412, 0.7254902, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g4v7s"]
+
 [node name="Player" type="CharacterBody3D" unique_id=2133001960 node_paths=PackedStringArray("head", "grabbed_anchor", "object_grabbed_shape_cast", "lantern")]
 collision_mask = 14
 script = ExtResource("1_tserw")
 head = NodePath("Head")
 grabbed_anchor = NodePath("Head/SpringArm3D/GrabbedAnchor")
 object_grabbed_shape_cast = NodePath("Head/ObjectGrabbedShapeCast")
-lantern = NodePath("OmniLight3D")
+lantern = NodePath("SpringArm3D/Lantern/OmniLight3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1353388965]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -54,7 +59,17 @@ radius = 0.05
 [node name="GrabbedAnchor" type="Marker3D" parent="Head/SpringArm3D" unique_id=1799891579]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1041176226]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5691926, -1.7482193)
-visible = false
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1736831820]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.421107, 0.98041415, -0.06155455)
+collision_mask = 30
+
+[node name="Lantern" type="Node3D" parent="SpringArm3D" unique_id=1924246852]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.20110697, 0.4745859, 0.22844544)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SpringArm3D/Lantern" unique_id=1041176226]
 light_energy = 1.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpringArm3D/Lantern" unique_id=1757734887]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_tserw")
+mesh = SubResource("SphereMesh_g4v7s")

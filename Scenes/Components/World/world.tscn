@@ -27,7 +27,7 @@ countdown_oil = NodePath("CountDownOil")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.166935, 0, 4.0562077)
 
 [node name="Player" parent="." unique_id=2133001960 instance=ExtResource("2_r27ec")]
-transform = Transform3D(-0.83526236, 0, 0.54985166, 0, 1, 0, -0.54985166, 0, -0.83526236, -11.964037, 0, 0)
+transform = Transform3D(-0.9054079, 0, -0.42454275, 0, 1, 0, 0.42454275, 0, -0.9054079, -11.964037, 0, 0)
 
 [node name="OilMachine" parent="." unique_id=1870009809 node_paths=PackedStringArray("player_ref") instance=ExtResource("3_74cjv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88685, 0, -8.112182)
