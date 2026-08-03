@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cyqcau2b3jsj3"]
+
+[ext_resource type="PackedScene" uid="uid://dxm27h0a6w0ry" path="res://Scenes/UI/main_menu.tscn" id="1_huwks"]
+[ext_resource type="PackedScene" uid="uid://bhafvfmrwjaqb" path="res://Scenes/UI/settings_menu.tscn" id="2_1bij0"]
+
+[node name="UI" type="CanvasLayer" unique_id=1932420857]
+
+[node name="MainMenu" parent="." unique_id=1187022529 instance=ExtResource("1_huwks")]
+
+[node name="SettingsMenu" parent="." unique_id=1824474224 instance=ExtResource("2_1bij0")]
