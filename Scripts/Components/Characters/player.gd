@@ -4,7 +4,7 @@ class_name Player
 @export var head: Node3D
 @export var grabbed_anchor: Marker3D
 @export var object_grabbed_shape_cast: ShapeCast3D
-@export var lantern: OmniLight3D
+@export var lantern: SpotLight3D
 
 const JUMP_VELOCITY = 4.5
 

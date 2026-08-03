@@ -1,6 +1,6 @@
 extends Node
 
-var oil_charge: int = 100
+var oil_charge: int = 1000
 var lantern: bool = false
 
 func _reset_status():
