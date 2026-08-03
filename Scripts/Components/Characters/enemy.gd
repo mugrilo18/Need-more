@@ -9,7 +9,8 @@ class_name Enemy
 
 enum EnemyState {
 	IDLE,
-	WALKING
+	PATROL,
+	CHASE,
 }
 
 var SPEED: float = 4.0
@@ -18,6 +19,8 @@ var current_destination
 
 #stats
 var angry: bool = false
+const SPEED_WALK: float = 2.0
+const SPEED_CHASE: float = 4.0
 
 func _ready() -> void:
 	_set_state(EnemyState.IDLE)
@@ -28,27 +31,29 @@ func _set_state(new_state: EnemyState) -> void:
 	match current_state:
 		EnemyState.IDLE:
 			idle_timer.start()
-		EnemyState.WALKING:
+		EnemyState.PATROL:
+			pass
+		EnemyState.CHASE:
 			if angry == true:
 				SPEED = 4.0
 			else:
 				SPEED = 2.0
 
 func _physics_process(_delta: float) -> void:
+	_apply_status()
+
+	if angry:
+		navigation_agent_3d.target_position = player_ref_pos.global_position
+	
 	match current_state:
 		EnemyState.IDLE:
 			pass
-		EnemyState.WALKING:
-			var next_path_pos: Vector3 = navigation_agent_3d.get_next_path_position()
-			var new_velocity: Vector3 = global_position.direction_to(next_path_pos) * SPEED
-			velocity = new_velocity
-			var look_at_target: Vector3 = Vector3(next_path_pos.x, global_position.y, next_path_pos.z)
-			if not global_position.is_equal_approx(look_at_target):
-				look_at(look_at_target)
-			
-			move_and_slide()
-	
-	_apply_status()
+		
+		EnemyState.PATROL:
+			_speed_to_target(SPEED_WALK)
+		
+		EnemyState.CHASE:
+			_speed_to_target(SPEED_CHASE)
 
 func _on_idle_timer_timeout() -> void:
 	_decide_next_state()
@@ -56,7 +61,7 @@ func _on_idle_timer_timeout() -> void:
 func _decide_next_state() -> void:
 	if current_state == EnemyState.IDLE:
 		_get_new_target()
-		_set_state(EnemyState.WALKING)
+		_set_state(EnemyState.PATROL)
 
 func _get_new_target():
 	if angry == false:
@@ -70,12 +75,28 @@ func _get_new_target():
 		
 
 func _on_navigation_agent_3d_navigation_finished() -> void:
-	if current_destination == player_ref_pos:
-		angry = false
+	if angry:
+		return
+
 	_set_state(EnemyState.IDLE)
 
 func _apply_status():
 	if PlayerStatus.lantern == true:
-		angry = true
+		if angry == false:
+			angry = true
+			navigation_agent_3d.target_position = player_ref_pos.global_position
+			_set_state(EnemyState.CHASE)
 	else:
-		angry = false
+		if angry == true:
+			angry = false
+			_set_state(EnemyState.IDLE)
+
+func _speed_to_target(speed: float):
+	var next = navigation_agent_3d.get_next_path_position()
+	velocity = global_position.direction_to(next) * speed
+
+	var look = Vector3(next.x, global_position.y, next.z)
+	if !global_position.is_equal_approx(look):
+		look_at(look)
+
+	move_and_slide()
