@@ -13,86 +13,70 @@ enum EnemyState {
 	CHASE,
 }
 
-var SPEED: float = 4.0
-var current_state:EnemyState = EnemyState.IDLE
-var current_destination
+var current_state: EnemyState = EnemyState.IDLE
 
-#stats
-var angry: bool = false
-const SPEED_WALK: float = 2.0
-const SPEED_CHASE: float = 4.0
+var saw_player := false
+var lantern_on := false
 
-func _ready() -> void:
+const SPEED_WALK := 2.0
+const SPEED_CHASE := 4.0
+
+
+func _ready():
 	_set_state(EnemyState.IDLE)
 
-func _set_state(new_state: EnemyState) -> void:
-	current_state = new_state
-	
+
+func _physics_process(_delta):
+	lantern_on = PlayerStatus.lantern
+
 	match current_state:
+
 		EnemyState.IDLE:
-			idle_timer.start()
+			if saw_player or lantern_on:
+				_set_state(EnemyState.CHASE)
+			
+
 		EnemyState.PATROL:
-			pass
-		EnemyState.CHASE:
-			if angry == true:
-				SPEED = 4.0
+			if saw_player or lantern_on:
+				_set_state(EnemyState.CHASE)
 			else:
-				SPEED = 2.0
+				_move_to_target(SPEED_WALK)
 
-func _physics_process(_delta: float) -> void:
-	_apply_status()
-
-	if angry:
-		navigation_agent_3d.target_position = player_ref_pos.global_position
-	
-	match current_state:
-		EnemyState.IDLE:
-			pass
-		
-		EnemyState.PATROL:
-			_speed_to_target(SPEED_WALK)
-		
 		EnemyState.CHASE:
-			_speed_to_target(SPEED_CHASE)
+			if !saw_player and !lantern_on:
+				_set_state(EnemyState.IDLE)
+			else:
+				navigation_agent_3d.target_position = player_ref_pos.global_position
+				_move_to_target(SPEED_CHASE)
 
-func _on_idle_timer_timeout() -> void:
-	_decide_next_state()
 
-func _decide_next_state() -> void:
-	if current_state == EnemyState.IDLE:
-		_get_new_target()
-		_set_state(EnemyState.PATROL)
+func _set_state(new_state: EnemyState):
+	current_state = new_state
 
-func _get_new_target():
-	if angry == false:
-		#normal behavior
-		current_destination = destination_array.pick_random()
-	else:
-		#angry
-		current_destination = player_ref_pos
-	
-	navigation_agent_3d.target_position = current_destination.global_position
-		
+	match current_state:
 
-func _on_navigation_agent_3d_navigation_finished() -> void:
-	if angry:
+		EnemyState.IDLE:
+			velocity = Vector3.ZERO
+			idle_timer.start()
+
+		EnemyState.PATROL:
+			_choose_random_destination()
+
+		EnemyState.CHASE:
+			navigation_agent_3d.target_position = player_ref_pos.global_position
+
+
+func _choose_random_destination():
+	var destination = destination_array.pick_random()
+	navigation_agent_3d.target_position = destination.global_position
+
+
+func _move_to_target(speed: float):
+	if navigation_agent_3d.is_navigation_finished():
 		return
 
-	_set_state(EnemyState.IDLE)
-
-func _apply_status():
-	if PlayerStatus.lantern == true:
-		if angry == false:
-			angry = true
-			navigation_agent_3d.target_position = player_ref_pos.global_position
-			_set_state(EnemyState.CHASE)
-	else:
-		if angry == true:
-			angry = false
-			_set_state(EnemyState.IDLE)
-
-func _speed_to_target(speed: float):
 	var next = navigation_agent_3d.get_next_path_position()
+
 	velocity = global_position.direction_to(next) * speed
 
 	var look = Vector3(next.x, global_position.y, next.z)
@@ -100,3 +84,23 @@ func _speed_to_target(speed: float):
 		look_at(look)
 
 	move_and_slide()
+
+
+func _on_idle_timer_timeout():
+	if current_state == EnemyState.IDLE:
+		_set_state(EnemyState.PATROL)
+
+
+func _on_navigation_agent_3d_navigation_finished():
+	if current_state == EnemyState.PATROL:
+		_set_state(EnemyState.IDLE)
+
+
+func _on_area_3d_body_entered(body):
+	if body is Player:
+		saw_player = true
+
+
+func _on_area_3d_body_exited(body):
+	if body is Player:
+		saw_player = false
