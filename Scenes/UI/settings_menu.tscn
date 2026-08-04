@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bhafvfmrwjaqb"]
 
+[ext_resource type="Theme" uid="uid://evj7qohe3khw" path="res://Assets/Themes/game_theme.tres" id="1_gus5t"]
+[ext_resource type="Script" uid="uid://cdqu7l8qfuwgp" path="res://Scripts/UI/settings_menu.gd" id="1_kfh4b"]
+
 [node name="SettingsMenu" type="Panel" unique_id=1824474224]
+visible = false
+custom_minimum_size = Vector2(700, 700)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -12,3 +17,77 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_gus5t")
+theme_type_variation = &"PanelBig"
+script = ExtResource("1_kfh4b")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2136100538]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=931914185]
+layout_mode = 2
+
+[node name="TittleMenu" type="Label" parent="MarginContainer/VBoxContainer" unique_id=823834581]
+layout_mode = 2
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=742244906]
+layout_mode = 2
+
+[node name="Section" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=444512504]
+layout_mode = 2
+
+[node name="TitleSection" type="Label" parent="MarginContainer/VBoxContainer/Section" unique_id=180900872]
+layout_mode = 2
+text = "Screen"
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/Section" unique_id=2016612657]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Fullscreen"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1494710804]
+layout_mode = 2
+
+[node name="Section2" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1149439094]
+layout_mode = 2
+
+[node name="TittleSection" type="Label" parent="MarginContainer/VBoxContainer/Section2" unique_id=1559629696]
+layout_mode = 2
+text = "Audio"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Section2" unique_id=279870466]
+layout_mode = 2
+
+[node name="Option" type="Label" parent="MarginContainer/VBoxContainer/Section2/HBoxContainer" unique_id=459240873]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Master"
+
+[node name="SliderOption" type="HSlider" parent="MarginContainer/VBoxContainer/Section2/HBoxContainer" unique_id=1159258187]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Percentage" type="Label" parent="MarginContainer/VBoxContainer/Section2/HBoxContainer" unique_id=564722988]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "000%"
+
+[node name="Apply" type="Button" parent="MarginContainer/VBoxContainer" unique_id=351083438]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Apply"
+
+[connection signal="button_down" from="MarginContainer/VBoxContainer/Apply" to="." method="_on_apply_button_down"]

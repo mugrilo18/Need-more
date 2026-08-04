@@ -1,16 +1,21 @@
 [gd_scene format=3 uid="uid://dxm27h0a6w0ry"]
 
 [ext_resource type="Shader" uid="uid://giv0h0gl8afm" path="res://Assets/Shaders/background_shader.gdshader" id="1_i2xx2"]
-[ext_resource type="Script" uid="uid://dgjok3sm6fxq2" path="res://Scenes/UI/main_menu.gd" id="1_o14dv"]
+[ext_resource type="Script" uid="uid://dgjok3sm6fxq2" path="res://Scripts/UI/main_menu.gd" id="1_o14dv"]
 [ext_resource type="Texture2D" uid="uid://16wjl1qxxl7v" path="res://Assets/Shaders/Patterns/Pattern02.png" id="2_i2xx2"]
+[ext_resource type="Theme" uid="uid://evj7qohe3khw" path="res://Assets/Themes/game_theme.tres" id="4_u7lva"]
+[ext_resource type="PackedScene" uid="uid://bhafvfmrwjaqb" path="res://Scenes/UI/settings_menu.tscn" id="5_mrfpk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_36iwh"]
 shader = ExtResource("1_i2xx2")
-shader_parameter/scroll_speed = 0.050000002375
+shader_parameter/scroll_speed = 0.010000000475
 shader_parameter/angle_degrees = 0.0
-shader_parameter/repeat_x = 6.0
-shader_parameter/repeat_y = 6.0
-shader_parameter/tint = Color(1.92523e-07, 0.38840538, 0.3884054, 1)
+shader_parameter/repeat_x = 10.0
+shader_parameter/repeat_y = 10.0
+shader_parameter/tint = Color(0.2627451, 0.22745098, 0.3764706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m5a1v"]
+font_size = 128
 
 [node name="MainMenu" type="CanvasLayer" unique_id=579720651]
 script = ExtResource("1_o14dv")
@@ -21,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.09665928, 0.13352588, 0.35456827, 1)
+color = Color(0.18431373, 0.12941177, 0.23137255, 1)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1714712942]
 material = SubResource("ShaderMaterial_36iwh")
@@ -45,17 +50,36 @@ offset_right = 35.0
 offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=2129701964]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "NEED MORE"
+label_settings = SubResource("LabelSettings_m5a1v")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayBtn" type="Button" parent="VBoxContainer" unique_id=1490385997]
 layout_mode = 2
+theme = ExtResource("4_u7lva")
+theme_type_variation = &"BtnMainMenu"
 text = "Play"
 
 [node name="SettingsBtn" type="Button" parent="VBoxContainer" unique_id=6454798]
 layout_mode = 2
+theme = ExtResource("4_u7lva")
+theme_type_variation = &"BtnMainMenu"
 text = "Settings"
 
 [node name="QuitBtn" type="Button" parent="VBoxContainer" unique_id=1366135540]
 layout_mode = 2
+theme = ExtResource("4_u7lva")
+theme_type_variation = &"BtnMainMenu"
 text = "Quit"
 
+[node name="SettingsMenu" parent="." unique_id=1824474224 instance=ExtResource("5_mrfpk")]
+
 [connection signal="button_down" from="VBoxContainer/PlayBtn" to="." method="_on_play_btn_button_down"]
+[connection signal="button_down" from="VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_button_down"]
+[connection signal="button_down" from="VBoxContainer/QuitBtn" to="." method="_on_quit_btn_button_down"]

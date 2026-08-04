@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://j7827prkdvn1" path="res://Assets/Icons/ProgressBar/charge_under.png" id="2_8glcj"]
 [ext_resource type="Texture2D" uid="uid://23tva08n0vmr" path="res://Assets/Icons/ProgressBar/charge_over.png" id="3_vsu76"]
 [ext_resource type="Texture2D" uid="uid://bsa7sjh8q2d5h" path="res://Assets/Icons/ProgressBar/charge_progress.png" id="4_ux5h0"]
+[ext_resource type="PackedScene" uid="uid://bhafvfmrwjaqb" path="res://Scenes/UI/settings_menu.tscn" id="6_ux5h0"]
 
 [node name="HUD" type="CanvasLayer" unique_id=687148713 node_paths=PackedStringArray("progress_oil")]
 script = ExtResource("1_vsu76")
@@ -46,5 +47,7 @@ nine_patch_stretch = true
 texture_under = ExtResource("2_8glcj")
 texture_over = ExtResource("3_vsu76")
 texture_progress = ExtResource("4_ux5h0")
+
+[node name="SettingsMenu" parent="." unique_id=1824474224 instance=ExtResource("6_ux5h0")]
 
 [connection signal="value_changed" from="MarginContainer/TextureProgressBar" to="." method="_on_texture_progress_bar_value_changed"]

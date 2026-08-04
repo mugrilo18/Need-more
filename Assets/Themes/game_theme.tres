@@ -1,5 +1,21 @@
 [gd_resource type="Theme" format=3 uid="uid://evj7qohe3khw"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_63mk0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwdkj"]
+bg_color = Color(0.23137255, 0.12941177, 0.21568628, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.09019608, 0.05490196, 0.09803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0nr10"]
 bg_color = Color(1, 1, 1, 0.49803922)
 corner_radius_top_left = 10
@@ -7,6 +23,16 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfh4b"]
+bg_color = Color(0, 0, 0, 1)
+
 [resource]
+BtnMainMenu/base_type = &"Button"
+BtnMainMenu/colors/font_color = Color(0.39607844, 0.4509804, 0.54901963, 1)
+BtnMainMenu/font_sizes/font_size = 64
+BtnMainMenu/styles/focus = SubResource("StyleBoxEmpty_63mk0")
+BtnMainMenu/styles/normal = SubResource("StyleBoxFlat_rwdkj")
 CrossHair/base_type = &"Panel"
 CrossHair/styles/panel = SubResource("StyleBoxFlat_0nr10")
+PanelBig/base_type = &"Panel"
+PanelBig/styles/panel = SubResource("StyleBoxFlat_kfh4b")
